@@ -1,0 +1,26 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-80-demo-svc
+  namespace: connector-demo-db
+spec:
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: mysql-80-demo
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: mysql-80
+  namespace: connector-demo-db
+spec:
+  path: /
+  to:
+    kind: Service
+    name: mysql-80-demo-svc
+  port:
+    targetPort: 3306

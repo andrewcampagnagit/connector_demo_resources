@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: connector-demo-db-config
+  namespace: connector-demo-db
+data:
+  MYSQL_HOST: %mysql-80-host-route%

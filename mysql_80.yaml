@@ -1,0 +1,19 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: connector-demo-db
+  labels:
+    name: connector-demo-db
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-80-demo
+  namespace: connector-demo-db
+spec:
+  containers:
+  - name: mysql-80-demo
+    image: quay.io/andrewcampagna/connector_development_demo_database
+    ports:
+    - containerPort: 3306

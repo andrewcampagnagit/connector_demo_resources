@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: populate-mysql-demo-db
+spec:
+  template:
+    spec:
+      containers:
+      - name: populate-mysql-demo-db
+        image: quay.io/andrewcampagna/connector_development_demo_database
+        env:
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: connector-demo-db-config
+              key: MYSQL_HOST
+        command: ["mysql","--user=$MYSQL_USER","--password=$MYSQL_PASSWORD", "--host=$MYSQL_HOST", "$MYSQL_DATABASE", "<", "/etc/mysql-80-rhel7/scripts/security_example_db.sql"]
+      restartPolicy: Never
+  backoffLimit: 4
